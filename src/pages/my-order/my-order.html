@@ -1,0 +1,60 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>My Orders</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="my-order common-bg">
+  <div class="card-empty" style="margin-top:40%; text-align:center" *ngIf="noItems">
+  	<div style="font-size: 16px;font-weight: bold;text-transform: capitalize;padding: 20px;color: darkgray">No orders were placed yet</div>
+	<ion-icon name="ios-cube-outline" style="font-size:100px;color: darkgray"></ion-icon>
+  </div>
+  <div class="card light-bg" margin-top *ngFor="let order of orders; let orderIndex = index">
+    <div class="card-header" padding>
+      <div>Order # {{ order.entity_id }}</div>
+      <div>Order Date: {{ order.created_at | date: 'MMM MM, yyyy' }}</div>
+      <div>Status: {{order.status}}</div>
+    </div>
+
+    <ion-list class="list-full-border" no-margin>
+      <ion-item class="product" *ngFor="let item of order.items; let i = index">
+        <ion-thumbnail item-left class="my-orders-thumb">
+          <ion-spinner *ngIf="!images['thumb' + orderIndex + i]" name="crescent" class="my-orders-spinner"></ion-spinner>
+          <img src="{{images['thumb' + orderIndex + i]}}">
+        </ion-thumbnail>
+        <!--item's information-->
+        <div>
+          <div text-wrap>{{ item.name }}</div>
+          <div padding-bottom>
+            <span class="pull-right">{{ item.price | currency:currencySym:true }} x {{ item.qty_ordered }}</span>
+            <div class="clear"></div>
+          </div>
+        </div>
+      </ion-item>
+	   <ion-item>
+      <div>
+        <span class="pull-left" ion-text color="gray">Total</span>
+        <span class="pull-right bold" ion-text color="danger">{{ order.grand_total | currency:currencySym:true }}</span>
+        <div class="clear"></div>
+      </div>
+	   </ion-item>
+	</ion-list>
+	<div class="card-footer">
+	<div style="width: 100%; text-align:center;">
+		<button ion-button color="blue" clear (click)="viewOrder(order.entity_id)">View Order</button>
+	</div>
+	</div>
+  </div>
+</ion-content>

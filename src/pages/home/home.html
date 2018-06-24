@@ -1,0 +1,95 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button (click)="goToCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="home common-bg">
+  <!-- slider on top-->
+  <ion-slides pager autoplay="2000">
+
+    <ion-slide *ngFor="let slide of slides">
+      <img src="{{ slide.src }}" alt="">
+    </ion-slide>
+
+  </ion-slides>
+
+  <ion-card>
+    <img src="{{imgBasePath + 'wysiwyg/banner/mans-fashion.jpg'}}" (click)="viewCategory(105, 'Men')" alt="mans-fashion">
+  </ion-card>
+  <ion-card>
+    <img src="{{imgBasePath + 'wysiwyg/banner/womens-fashion.jpg'}}" (click)="viewCategory(97, 'Women')" alt="womens-fashion">
+  </ion-card>
+
+  <!--<ion-card>
+    <ion-list class="cat-list">
+      <ion-row>
+        <ion-col *ngFor="let cat of categories | slice:0:3; let i = index" (click)="viewCategory(cat.id)">
+          <img src="{{ cat.thumb }}" alt="">
+          <div text-center>{{ cat.name }}</div>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-card>
+
+  <ion-grid class="grid-no-padding deals">
+    <ion-row>
+      <ion-col text-center>
+        <ion-card>
+          <div>Flash Deals</div>
+          <ion-badge color="primary">00:00:01</ion-badge>
+          <img src="assets/img/items/item_1.jpg" alt="">
+        </ion-card>
+      </ion-col>
+      <ion-col text-center>
+        <ion-card>
+          <div>Super Deals</div>
+          <ion-badge color="primary">Up to 90% off</ion-badge>
+          <img src="assets/img/items/item_2.jpg" alt="">
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>-->
+
+  <h4 text-center>DEALS OF THE DAY</h4>
+
+  <ion-list no-margin class="list-full-border list-products list-md grid">
+    <ion-item class="product" *ngFor="let item of deals" (click)="viewItem(item.sku, item.name)">
+      <ion-thumbnail item-left>
+        <img src="{{ imgProductBasePath + item.custom_attributes.small_image }}">
+      </ion-thumbnail>
+      <!--item's information-->
+      <div>
+        <div text-wrap>{{ item.name }}</div>
+        <div>
+          <span ion-text color="danger" *ngIf="item.custom_attributes.special_price">{{ item.custom_attributes.special_price | currency:currencySym:true }}</span>
+          <span ion-text color="danger" *ngIf="!item.custom_attributes.special_price">{{ item.price | currency:currencySym:true }}</span>
+        </div>
+        <div class="origin-price text-sm">
+          <span *ngIf="item.custom_attributes.special_price" class="text-decoration">{{ item.price | currency: currencySym :true }}</span>
+          <span *ngIf="item.custom_attributes.special_price" class="discount-rate" ion-text color="danger">{{ discountPercent(item.price, item.custom_attributes.special_price) }}%</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+</ion-content>

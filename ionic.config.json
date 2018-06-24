@@ -1,0 +1,18 @@
+{
+  "name": "ionic2_ecommerce",
+  "app_id": "ecbf6bd1",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/rest/V1/",
+      "proxyUrl": "http://demo.styleporter.com/rest/V1/"
+    },
+    {
+      "path": "/midtrans/",
+      "proxyUrl": "https://app.sandbox.midtrans.com/snap/v1/"
+    }
+  ],
+  "type": "ionic-angular"
+}

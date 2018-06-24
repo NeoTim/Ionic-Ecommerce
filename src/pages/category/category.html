@@ -1,0 +1,68 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{ category }}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="goToCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <div padding class="border-bottom text-lg">
+    <span class="pull-left" (click)="chooseSortBy()" ion-text color="gray">
+      {{ sortBy }}
+      <ion-icon name="md-arrow-dropdown"></ion-icon>
+    </span>
+    <ion-icon class="pull-right" name="apps" (click)="viewGrid()" [hidden]="viewType == 'grid'"></ion-icon>
+    <ion-icon class="pull-right" name="menu" (click)="viewList()" [hidden]="viewType == 'list'"></ion-icon>
+    <div class="clear"></div>
+  </div>
+
+  <!--List of items-->
+  <ion-list no-margin class="list-full-border list-products"
+            [ngClass]="{'grid': viewType == 'grid', 'list': viewType == 'list'}">
+    <ion-item class="product" *ngFor="let item of items" (click)="viewItem(item.sku, item.name)">
+      <ion-thumbnail item-left>
+        <img src="{{ imgBasePath + item.custom_attributes.small_image }}">
+      </ion-thumbnail>
+      <!--item's information-->
+      <div>
+        <div text-wrap>{{ item.name }}</div>
+        <div>
+          <span ion-text color="danger" *ngIf="item.custom_attributes.special_price">{{ item.custom_attributes.special_price | currency:currencySym:true }}</span>
+          <span ion-text color="danger" *ngIf="!item.custom_attributes.special_price">{{ item.price | currency:currencySym:true }}</span>
+        </div>
+        <div class="origin-price text-sm">
+          <span *ngIf="item.custom_attributes.special_price" class="text-decoration">{{ item.price | currency: currencySym :true }}</span>
+          <span *ngIf="item.custom_attributes.special_price" class="discount-rate" ion-text color="danger">{{ discountPercent(item.price, item.custom_attributes.special_price) }}%</span>
+        </div>
+      </div>
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
+
+<!--Footer buttons-->
+<ion-footer class="category">
+  <ion-toolbar position="bottom">
+    <!--filter button-->
+	<div style="text-align: center;">
+    <ion-buttons text-center start>
+      <button ion-button icon-left (click)="openFilter('filter')">
+        <ion-icon name="ios-funnel"></ion-icon>
+        FILTER
+      </button>
+    </ion-buttons>
+	</div>
+  </ion-toolbar>
+</ion-footer>

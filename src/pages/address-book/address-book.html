@@ -1,0 +1,65 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Address Book</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="edit-profile common-bg cart">
+  <div class="card">
+    <div class="card-header" padding>
+      <h4>Default Shipping Address:</h4>
+      <div *ngIf="!profile.defaultShipping">
+        <div class="no-address">You have not set a default shipping address.</div>
+        <ion-item (click)="updateAddress(null)">
+          <ion-icon name="md-create"></ion-icon>
+          Edit Address
+        </ion-item>
+      </div>
+      <div *ngIf="profile.defaultShipping">
+        <ion-item class="default-address">
+          <ion-label>
+            {{profile.defaultShipping.firstname}} {{profile.defaultShipping.lastname}}<br />
+            {{profile.defaultShipping.street}}<br />
+            {{profile.defaultShipping.city}}, {{profile.defaultShipping.region.region}} {{profile.defaultShipping.postcode}}<br />
+            {{profile.defaultShipping.telephone}}
+          </ion-label>
+        </ion-item>
+        <ion-item class="edit-icon" (click)="updateAddress(profile.defaultShipping)">
+          <ion-icon name="md-create"></ion-icon>
+          Edit Address
+        </ion-item>
+      </div>
+    </div>
+    <div class="card-header" padding *ngIf="profile.addresses.length > 1">
+      <h4>Additional Address Entries:</h4>
+      <div *ngFor="let address of profile.additonal;">
+        <ion-item class="default-address">
+          <ion-label>
+            {{address.firstname}} {{address.lastname}}<br />
+            {{address.street}}<br />
+            {{address.city}}, {{address.region.region}} {{address.postcode}}<br />
+            {{address.telephone}}
+          </ion-label>
+        </ion-item>
+        <ion-item class="edit-icon" (click)="updateAddress(address)">
+          <ion-icon name="md-create"></ion-icon>
+          Edit Address
+        </ion-item>
+      </div>
+    </div>
+    <div padding *ngIf="profile.addresses.length > 0">
+      <span ion-button item-right color="secondary" (click)="updateAddress(null)">Add a new address</span>
+    </div>
+  </div>
+</ion-content>

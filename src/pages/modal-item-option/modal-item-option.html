@@ -1,0 +1,77 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light">
+    <ion-buttons start>
+      <button ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Product Specification</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <!--item thumbnail-->
+  <ion-item class="no-border border-bottom">
+    <ion-thumbnail item-left>
+      <img src="{{ imgBasePath + item.custom_attributes.small_image }}">
+    </ion-thumbnail>
+    <div>
+      <h2 class="price" ion-text color="danger" margin-top *ngIf="item.custom_attributes.special_price">{{ item.custom_attributes.special_price + item.option_price |
+        currency:currencySym:true }}</h2>
+      <h2 class="price" ion-text color="danger" margin-top *ngIf="!item.custom_attributes.special_price">{{ item.price + item.option_price |
+        currency:currencySym:true }}</h2>
+      <span ion-text color="gray">{{ item.selectedOptions }}</span>
+    </div>
+  </ion-item>
+  <ng-container *ngFor="let optionGroup of item.options">
+    <div class="border-bottom" padding *ngIf="optionGroup.is_require">
+      <div>
+        {{ optionGroup.title }}
+        <span padding-left>{{ optionGroup.currentOption ? (optionGroup.currentOption.price | currency:currencySym:true) : '' }}</span>
+      </div>
+      <div class="item-option" *ngFor="let option of optionGroup.values;let i = index;"
+           (click)="chooseOption(optionGroup, option, i, item)"
+           [ngClass]="{'active': (option.active && optionGroup.currentOption)}">
+        {{ option.title }}
+      </div>
+      <div *ngIf="!optionGroup.currentOption && error" class="item-option-error">
+        {{ optionGroup.title }} is required
+      </div>
+    </div>
+  </ng-container>
+  <div class="border-bottom" padding>
+    <div>Quantity</div>
+    <div class="input-qty" margin-top>
+      <span class="btn" (click)="minusQty(item)">
+        <ion-icon name="ios-remove"></ion-icon>
+      </span>
+      <input type="text" value="{{item.qty}}">
+      <span class="btn" (click)="addQty(item)">
+        <ion-icon name="ios-add"></ion-icon>
+      </span>
+      <div class="clear"></div>
+    </div>
+  </div>
+
+  <!--add to cart-->
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block color="blue" class="" (click)="addCart(item)">ADD TO CART</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button color="blue" block (click)="buy(item)">BUY NOW</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

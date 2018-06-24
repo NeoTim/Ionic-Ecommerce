@@ -1,0 +1,69 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="content">
+<div *ngIf="item.name">
+  <div class="card light-bg">
+    <!-- slider on top-->
+    <ion-slides pager autoplay="2000">
+
+      <ion-slide *ngFor="let slide of item.media_gallery_entries">
+        <img src="{{ imgBasePath + slide.file }}" alt="">
+      </ion-slide>
+
+    </ion-slides>
+
+    <div text-center padding class="border-bottom">
+  	  <ion-title>{{ product }}</ion-title>
+      <h1 class="price" ion-text color="danger" margin-top *ngIf="item.custom_attributes.special_price">{{ item.custom_attributes.special_price | currency:currencySym:true
+        }}</h1>
+      <h1 class="price" ion-text color="danger" margin-top *ngIf="!item.custom_attributes.special_price">{{ item.price | currency:currencySym:true }}</h1>
+      <h2 class="origin-price text-decoration" ion-text color="gray" margin-top *ngIf="item.custom_attributes.special_price">{{ item.price |
+        currency:currencySym:true }}</h2>
+  	  <p text-left><span [innerHTML]="item.custom_attributes.short_description"></span></p>	
+      </div>
+    </div>
+
+    <!--item options-->
+    <ion-item class="no-border">
+      <div>
+        <div>{{ getOptionGroupsName(item) }}</div>
+      </div>
+
+      <div item-right>
+        <span class="bold" ion-text color="secondary" (click)="showOptions(item)">SELECT</span>
+      </div>
+    </ion-item>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button block color="blue" class="" (click)="showOptions(item)">ADD TO CART</button>
+        </ion-col>
+        <ion-col>
+          <button ion-button color="blue" block (click)="showOptions(item)">BUY NOW</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!--Description-->
+    <div class="card light-bg" margin-top>
+      <div class="border-bottom" padding>Item Description</div>
+      <div padding><span [innerHTML]="item.custom_attributes.description"></span></div>
+    </div>
+  </div>
+</ion-content>

@@ -1,0 +1,12 @@
+page-my-order,
+.my-order {
+	.my-orders-thumb {
+		position: relative;
+		.my-orders-spinner {
+			position: absolute;
+			width: 100%;
+    		top: 2.5rem;
+    		z-index: 1;
+		}
+	}
+}

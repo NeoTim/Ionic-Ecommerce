@@ -1,0 +1,98 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Orders Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding class="order-received common-bg">
+  <div *ngIf="orders">
+    <div class="card light-bg" margin-top>
+      <div class="card-header" padding>
+        <div>Order # {{ orders.entity_id }}</div>
+        <div>Status: {{orders.status}}</div>
+        <div>Order Date: {{ orders.created_at | date: 'MMM MM, yyyy' }}</div>
+      </div>
+
+      <ion-list class="list-full-border" no-margin>
+        <ion-item class="product" *ngFor="let item of orders.items;">
+          <div>
+            <div text-wrap>{{ item.name }}</div>
+            <div padding-bottom>
+              <span class="pull-right">{{ item.price | currency:currencySym:true }} x {{ item.qty_ordered }}</span>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </ion-item>
+      </ion-list>
+
+      <div class="card-footer" padding>
+        <div>
+          <span class="pull-left" ion-text color="gray">Total</span>
+          <span class="pull-right bold" ion-text color="danger">{{ orders.grand_total | currency:currencySym:true }}</span>
+          <div class="clear"></div>
+        </div>
+      </div>
+	  <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div><strong>Shipping Address</strong></div>
+            <div> 
+             {{orders.shipping_address.firstname}} {{orders.shipping_address.lastname}}
+             <br />
+             {{orders.shipping_address.company}}
+             <br />
+             {{orders.shipping_address.street}}
+             <br />
+             {{orders.shipping_address.city}}, {{orders.shipping_address.region}}, {{orders.shipping_address.postcode}}
+             <br />
+             {{orders.shipping_address.country_id}}
+             <br />
+             {{orders.shipping_address.telephone}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Shipping Method</strong></div>
+            <div>
+              {{orders.shipping_description}} 
+            </div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <div><strong>Billing Address,</strong></div>
+            <div> 
+             {{orders.billing_address.firstname}} {{orders.billing_address.lastname}}
+             <br />
+             {{orders.billing_address.company}}
+             <br />
+             {{orders.billing_address.street}}
+             <br />
+             {{orders.billing_address.city}}, {{orders.billing_address.region}}, {{orders.billing_address.postcode}}
+             <br />
+             {{orders.billing_address.country_id}}
+             <br />
+             {{orders.billing_address.telephone}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div><strong>Payment Method</strong></div>
+            <div>
+              {{orders.payment.additional_information}} 
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>

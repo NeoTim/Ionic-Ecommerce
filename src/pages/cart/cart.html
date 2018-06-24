@@ -1,0 +1,102 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Cart</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content class="cart common-bg">
+  <div class="card-empty" *ngIf="noItems">
+    <div class="cart-empty-content">
+      No items in your cart yet
+    </div>
+    <ion-icon name="ios-cart-outline"></ion-icon>
+  </div>
+  <div class="card" margin-top>
+    <ion-list class="list-full-border" no-margin *ngIf="cartItems">
+      <ion-item  class="product" *ngFor="let item of cartItems; let i = index">
+        <ion-thumbnail item-left>
+          <img src="{{ item.image }}">
+        </ion-thumbnail>
+        <!--item's information-->
+        <div>
+          <div text-wrap (click)="viewItem(item.sku, item.name)">{{ item.name }}</div>
+          <div class="text-sm" *ngIf="item.product_option">
+            <div ion-text color="gray" *ngFor="let option of item.product_option.extension_attributes.custom_options;">{{ option.title }}: {{option.value_title}}</div>
+          </div>
+          <div padding-bottom>
+            <span class="pull-right">{{ (item.qty * item.price) | currency:currencySym:true }}</span>
+            <div class="clear"></div>
+          </div>
+          <div>
+            <div class="input-qty">
+            <span class="btn" (click)="minusQty(item, i)">
+              <ion-icon name="ios-remove"></ion-icon>
+            </span>
+              <input type="text" value="{{item.qty}}">
+              <span class="btn" (click)="addQty(item, i)">
+              <ion-icon name="ios-add"></ion-icon>
+            </span>
+              <div class="clear"></div>
+            </div>
+            <div class="pull-right bottom-info text-lg trash-btn">
+              <ion-icon name="trash" color="gray" class="pull-right" (click)="remove(item, item.item_id, i)"></ion-icon>
+              <div class="clear"></div>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <!--Total price-->
+  <div class="card" margin-top *ngIf="cartTotal">
+    <div class="card-footer" padding>
+      <div>
+        <span class="pull-left" ion-text color="gray">Total</span>
+        <span class="pull-right" ion-text color="gray">{{ cartTotal.subtotal | currency:currencySym:true }}</span>
+        <div class="clear"></div>
+      </div>
+      <div>
+        <span class="pull-left" ion-text color="gray">Discount</span>
+        <span class="pull-right" ion-text color="gray">{{ cartTotal.discount_amount | currency:currencySym:true }}</span>
+        <div class="clear"></div>
+      </div>
+      <div>
+        <span class="pull-left" ion-text color="gray">Sub Total</span>
+        <span class="pull-right" ion-text color="gray">{{ cartTotal.grand_total | currency:currencySym:true }}</span>
+        <div class="clear"></div>
+      </div>
+      <div>
+        <span class="pull-left" ion-text color="gray">Shipping</span>
+        <span class="pull-right" ion-text color="gray">{{ cartTotal.shipping_amount > 0 ? (cartTotal.shipping_amount | currency:currencySym:true) : 'FREE' }}</span>
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<div *ngIf="cartTotal">
+  <ion-footer class="cart-footer" padding>
+    <ion-title>
+      <span ion-text color="gray">Total Payable</span>
+      <br/>
+      <span class="bold" ion-text color="danger">{{ cartTotal.grand_total | currency:currencySym:true }}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="buy()" color="blue">
+        BUY ALL
+      </button>
+    </ion-buttons>
+  </ion-footer>
+</div>

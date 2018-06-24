@@ -1,0 +1,20 @@
+page-address-book,
+.address-book {
+	.card-header {
+		.card-title {
+			padding: 5px 0px;
+		}
+		.edit-icon {
+			ion-label {
+				font-size: 1.3rem;
+			}
+		}
+	}
+	.no-address {
+		padding: 5px 0px;
+		font-size: 12px;
+	}
+	.default-address {
+		padding: 5px;
+	}
+}

@@ -1,0 +1,33 @@
+page-order-confirm,
+.order-confirm {
+
+  .price {
+    padding-top: 10px;
+  }
+
+  .card-header {
+    .card-title {
+      padding: 5px 0px;
+    }
+  }
+
+  .shipping-methods {
+  	position: relative;
+  	.shipping-methods-spinner {
+  		position: absolute;
+  		width: 100%;
+  		top: 50%;
+  		z-index: 2;
+  	}
+  }
+
+  .address-methods {
+    position: relative;
+    .address-spinner {
+      position: absolute;
+      width: 100%;
+      top: 50%;
+      z-index: 2;
+    }
+  }
+}

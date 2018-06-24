@@ -1,0 +1,51 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Categories</ion-title>
+    <ion-buttons end>
+	  <button ion-button (click)="goToSearch()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      <button ion-button (click)="goToCart()">
+        <ion-icon name="cart"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="categories">
+  <ion-list>
+    <ion-item item-icon-right *ngFor="let category of categories; let i=index" (click)="(category.children_data.length > 0 ? toggleLevel($event, 'idx'+i+category.level) : viewCategory(category.id, category.name))" [ngClass]="{active: isLevelShown('idx'+i+category.level)}">
+      <h4 ion-item no-lines>
+        {{ category.name }}
+        <ion-icon color="success" *ngIf="category.children_data.length > 0" [name]="isLevelShown('idx'+i+category.level) ? 'remove' : 'add'" item-right></ion-icon>
+      </h4>
+  		<ion-list *ngIf="isLevelShown('idx'+i+category.level, category.level)" class="list-no-border">
+        <ion-item *ngFor="let subcategory of category.children_data; let i=index" (click)="(subcategory.children_data.length > 0 ? toggleLevel($event, 'idx'+i+subcategory.level) : viewCategory(subcategory.id, subcategory.name))" [ngClass]="{active: isLevelShown('idx'+i+subcategory.level)}">
+          <h4 ion-item no-lines>
+			{{ subcategory.name }}
+            <ion-icon color="success" *ngIf="subcategory.children_data.length > 0" [name]="isLevelShown('idx'+i+subcategory.level) ? 'remove' : 'add'" item-right></ion-icon>
+          </h4>
+          <ion-list *ngIf="isLevelShown('idx'+i+subcategory.level)" class="list-no-border">
+            <ion-item *ngFor="let subsubcategory of subcategory.children_data; let i=index" (click)="(subsubcategory.children_data.length > 0 ? toggleLevel($event, 'idx'+i) : viewCategory(subsubcategory.id, subsubcategory.name))" [ngClass]="{active: isLevelShown('idx'+i+subsubcategory.level)}">
+             <h4 ion-item no-lines>
+              {{ subsubcategory.name }}
+              <ion-icon color="success" *ngIf="subsubcategory.children_data.length > 0" [name]="isLevelShown('idx'+i+subsubcategory .level) ? 'remove' : 'add'" item-right></ion-icon>
+              </h4>
+            </ion-item>
+          </ion-list>
+    		</ion-item>
+      </ion-list>
+    </ion-item>
+  </ion-list>
+</ion-content>

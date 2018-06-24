@@ -1,0 +1,115 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="light" *ngIf="isModal">
+    <ion-buttons start>
+      <button ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+  <ion-navbar color="primary" *ngIf="!isModal">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="modal-address-option">
+  <form [formGroup]="authForm" (ngSubmit)="onSubmit(authForm.value)">
+    <ion-list class="list-form">
+      <ion-item>
+		<ion-label floating>First Name</ion-label>
+        <ion-input type="text" formControlName="firstname"  value="{{profile.firstname}}"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.firstname.hasError('required ') && authForm.controls.firstname.touched">
+          Firstname is required
+      </ion-label>
+      <ion-item>
+		<ion-label floating>Last Name</ion-label>
+        <ion-input type="text" formControlName="lastname" value="{{profile.lastname}}"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.lastname.hasError('required ') && authForm.controls.lastname.touched">
+          Lastname is required
+      </ion-label>
+      <ion-item>
+	    <ion-label floating>Company</ion-label>
+        <ion-input type="text" formControlName="company"></ion-input>
+      </ion-item>
+      <ion-item>
+		<ion-label floating>Street</ion-label>
+        <ion-input type="text" formControlName="street"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.street.hasError('required ') && authForm.controls.street.touched">
+          Street is required
+      </ion-label>
+      <ion-item>
+		<ion-label floating>City</ion-label>
+        <ion-input type="text" formControlName="city"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.city.hasError('required ') && authForm.controls.city.touched">
+          City is required
+      </ion-label>
+      <ion-item>
+        <ion-label>Country</ion-label>
+        <ion-select formControlName="countryId" (ionChange)="chooseState($event)">
+          <ion-option *ngFor="let item of countries" [value] = "item.id">{{item.full_name_locale}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.countryId.hasError('required ') && authForm.controls.countryId.touched">
+          State/Province is required
+      </ion-label>
+      <ion-item *ngIf="state">
+        <ion-label>State/Province</ion-label>
+        <ion-select formControlName="region" >
+          <ion-option *ngFor="let item of state" [value] = "item.id">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item *ngIf="!state">
+		 <ion-label floating>State/Province</ion-label>
+         <ion-input type="text" formControlName="region"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.region.hasError('required ') && authForm.controls.region.touched">
+          State/Province is required
+      </ion-label>
+      <ion-label color="orange" *ngIf="authForm.controls.city.hasError('required ') && authForm.controls.city.touched">
+          City is required
+      </ion-label>
+      <ion-item>
+		<ion-label floating>Zip/Postal Code</ion-label>
+        <ion-input type="text" formControlName="postcode"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.postcode.hasError('required ') && authForm.controls.postcode.touched">
+          Zip/Postal Code is required
+      </ion-label>
+      <ion-item>
+		<ion-label floating>Phone Number</ion-label>
+        <ion-input type="text" formControlName="telephone"></ion-input>
+      </ion-item>
+      <ion-label color="orange" *ngIf="authForm.controls.telephone.hasError('required ') && authForm.controls.telephone.touched">
+          Phone Number is required
+      </ion-label>
+      <ion-item *ngIf="(isModal && editType === 'editShipping')">
+        <ion-label>Save in address book</ion-label>
+        <ion-checkbox formControlName="saveInAddressBook" [checked]="isSaveAddress" (click)="saveAddress()"></ion-checkbox>
+      </ion-item>
+      <ion-item class="addAdjust" *ngIf="editType === 'AddressBook' && ((editData && !editData.default_shipping) || !editData)">
+        <ion-label>Use as my default shipping address</ion-label>
+        <ion-checkbox formControlName="defaultShipping" [checked]="useShipping" (click)="setShipping()"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+    <ion-input *ngIf="(!isModal || editType === 'AddressBook')" type="hidden" formControlName="saveInAddressBook" value="1"></ion-input>
+    <ion-input *ngIf="(editData && editData.default_shipping && editType === 'AddressBook')" type="hidden" formControlName="defaultShipping" value="1"></ion-input>
+    <button ion-button color="blue" [disabled]="authForm.invalid"  block>Save Address</button>
+  </form>
+</ion-content>

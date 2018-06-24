@@ -1,0 +1,99 @@
+page-home,
+.home {
+
+  ion-slides {
+    height: auto;
+  }
+
+  .cat-list {
+    font-size: 0.8em;
+  }
+
+  .cat-icon {
+    padding: 0.2rem;
+    font-size: 5em;
+    font-weight: bold;
+  }
+
+  .deals {
+
+    ion-col {
+      padding: 6px;
+      padding-top: 0;
+
+      &:first-child {
+        padding-left: 12px;
+      }
+
+      &:last-child {
+        padding-right: 12px;
+      }
+
+      ion-card {
+        width: 100%;
+        padding: 0.8em;
+        margin: 0;
+
+        ion-badge {
+
+          width: 100%;
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+
+  .price {
+    font-size: 1.2em;
+  }
+
+  ion-list.list-products {
+
+    .discount-rate {
+      font-size: 0.9em;
+      padding: 3px;
+      background: rgba(244, 67, 54, .15);
+    }
+
+    &.grid {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+
+      ion-item {
+        width: 50%;
+        display: block;
+
+        ion-thumbnail {
+
+          img {
+            width: 100%;
+            height: auto;
+            max-width: none;
+            max-height: none;
+          }
+        }
+
+        .item-inner {
+
+          ion-label {
+
+            .origin-price {
+              min-height: 2rem;
+            }
+
+            .pull-left,
+            .pull-right {
+              display: block;
+              float: none;
+            }
+          }
+        }
+      }
+
+      ion-item:nth-child(2n) {
+        border-left: 1px solid color($colors, bgColor);
+      }
+    }
+  }
+}

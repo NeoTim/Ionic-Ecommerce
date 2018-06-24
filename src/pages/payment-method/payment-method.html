@@ -1,0 +1,68 @@
+<!--
+  Generated template for the ProfilePage page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Place Order</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="payment-method common-bg cart">
+  <div class="card-header" padding>
+    <div class="card-title">My Billing address:</div>
+    <div>
+      <ion-item>
+        {{billing.firstname}} {{billing.lastname}}<br />
+        {{billing.street}}<br />
+        {{billing.city}}, {{billing.region.region}} {{billing.postcode}}<br />
+        {{billing.telephone}}
+      </ion-item>
+    </div>
+  </div>
+  <div *ngIf="payments">
+    <div class="card">
+      <div class="card-header" padding>
+        Payment Method
+        <div *ngFor="let item of payments.payment_methods;">
+          <ion-item>
+            <ion-label>{{item.title}}</ion-label>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+
+    <!--Total price-->
+    <div class="card" margin-top>
+      <div class="card-footer" padding>
+        <div *ngFor="let item of payments.totals.total_segments;">
+          <span class="pull-left" ion-text color="gray">{{item.title}}</span>
+          <span class="pull-right" ion-text color="gray">{{ item.value | currency:'USD':true }}</span>
+          <div class="clear"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<div *ngIf="payments">
+  <ion-footer class="cart-footer" padding>
+    <ion-title>
+      <span ion-text color="gray">Total</span>
+      <br/>
+      <span class="bold" ion-text color="danger">{{ payments.totals.grand_total | currency:'USD':true }}</span>
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button class="order-received-btn" (click)="buy()" color="blue">
+        PLACE ORDER
+      </button>
+    </ion-buttons>
+  </ion-footer>
+</div>
